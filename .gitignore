@@ -1,0 +1,37 @@
+node_modules/
+dist/
+data/
+media/
+.env
+test-results/
+playwright-report/
+.tmp/
+
+# Environment, credentials and private local import notes
+.env.*
+!.env.example
+*.pem
+*.key
+*creds*.json
+*creds*.sh
+/docs/GULING-IMPORT.md
+
+# Runtime databases, logs and caches (also when configured outside data/)
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3
+*.log
+coverage/
+.cache/
+*.tsbuildinfo
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini

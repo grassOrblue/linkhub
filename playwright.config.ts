@@ -1,0 +1,2 @@
+import { defineConfig } from '@playwright/test';
+export default defineConfig({testDir:'./web/test',use:{launchOptions:{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH},baseURL:'http://127.0.0.1:8792',viewport:{width:390,height:844}},webServer:{command:'node --import tsx server/src/index.ts',url:'http://127.0.0.1:8792/api/health',timeout:30000,reuseExistingServer:false,env:{PORT:'8792',PUBLIC_BASE_URL:'http://127.0.0.1:8792',DATA_DIR:'.tmp/e2e-data-2',MEDIA_DIR:'.tmp/e2e-media'}},workers:1});

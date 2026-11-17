@@ -1,0 +1,11 @@
+import cron from 'node-cron';
+import { app } from './app.ts';
+import { config } from './config.ts';
+import { all, db } from './db.ts';
+import { scan } from './media.ts';
+import { generate } from './copy.ts';
+if(!cron.validate(config.cron)) throw Error('COPY_CRON 无效');
+const server=app.listen(config.port,config.host,()=>console.log(`Linkhub ${config.base} · 后台 http://127.0.0.1:${config.port}/admin`));
+scan().catch(e=>console.error('素材扫描失败',e.message));
+const schedule=cron.schedule(config.cron,async()=>{for(const store of all('SELECT id FROM stores')) {try {await generate(store.id,config.quota,true);}catch(e){console.error(e);}await new Promise(r=>setTimeout(r,200));}},{timezone:'Asia/Shanghai',noOverlap:true});
+process.on('SIGTERM',()=>{schedule.stop();server.close(()=>{db.close();process.exit(0);});});
